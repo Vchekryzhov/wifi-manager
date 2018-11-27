@@ -1,0 +1,31 @@
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Sign Up
+
+        // register form
+        form(method='POST' action='/connect')
+          div.form-group
+            label(for='ssids') Favorite Book:
+            select(name='ssid')
+              each network in networks
+                option(value=network.ssid)  #{network.ssid}
+          div.form-group
+            label(for='pw') Password:
+            input#pw.form-control(type='password' name='password')
+          button.btn.btn-primary(type='submit') Sign up
+          div
+            each currentConnect in currentConnections
+              p=currentConnect.ssid
+              p=currentConnect.bssid
+              p=currentConnect.mac
+              p=currentConnect.mode
+              p=currentConnect.channel
+              p=currentConnect.frequency
+              p=currentConnect.signal_level
+              p=currentConnect.security
+          div
+            each error in errors
+              p.errors=error
