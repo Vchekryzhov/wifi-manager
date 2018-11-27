@@ -1,31 +1,62 @@
+head
+  link(rel='stylesheet', href='css/materialize.min.css')
+  link(rel='stylesheet', href='css/stylesheet.css')
+  link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+  script(src='js/materialize.min.js')
+  script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
-block content
-  .main.container
-    .row
-      .col-md-6.col-md-offset-3
-        h1.display-4.m-b-2 Sign Up
-
-        // register form
-        form(method='POST' action='/connect')
-          div.form-group
-            label(for='ssids') Favorite Book:
-            select(name='ssid')
+body
+  block content
+    .main.container
+      .row
+        .col-md-6.col-md-offset-3
+          h1.display-4.m-b-2 Безопасный интернет
+          // register form
+          form(method='POST' action='/connect')
+            label(for='ssids') Имя сети:
+            select.browser-default(name='ssid')
               each network in networks
                 option(value=network.ssid)  #{network.ssid}
-          div.form-group
-            label(for='pw') Password:
-            input#pw.form-control(type='password' name='password')
-          button.btn.btn-primary(type='submit') Sign up
-          div
-            each currentConnect in currentConnections
-              p=currentConnect.ssid
-              p=currentConnect.bssid
-              p=currentConnect.mac
-              p=currentConnect.mode
-              p=currentConnect.channel
-              p=currentConnect.frequency
-              p=currentConnect.signal_level
-              p=currentConnect.security
-          div
-            each error in errors
-              p.errors=error
+            label(for='pw') Ключ безопасности:
+            input(type='password' name='password')
+            button.waves-effect.waves-light.btn-small(type='submit') Подключиться
+
+            br
+            br
+            br
+            br
+            div
+              h1.display-4.m-b-2 Текущее подключение
+              each currentConnect in currentConnections
+                table
+                  tr
+                    th SSID
+                    th #{currentConnect.ssid}
+                  tr
+                    th BSSID
+                    th #{currentConnect.bssid}
+                  tr
+                    th MAC
+                    th #{currentConnect.mac}
+                  tr
+                    th MODE
+                    th #{currentConnect.mode}
+                  tr
+                    th CHANNEL
+                    th #{currentConnect.channel}
+                  tr
+                    th FREQUENCE
+                    th #{currentConnect.frequency}
+                  tr
+                    th SIGNAL LEVEL
+                    th #{currentConnect.signal_level}
+                  tr
+                    th SECURITY
+                    th #{currentConnect.security}
+
+            div
+              each error in errors
+                p.errors=error
+    script
+      include script.js
